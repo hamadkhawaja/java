@@ -15,19 +15,18 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        Stack stack = new Stack(10);
-        stack.push(4);
-        stack.push(5);
-        stack.push(2);
-        stack.push(3);
-        stack.push(1);
-
-        stack = sortStack(stack);
-
-        System.out.print(stack.pop() + " ");
-        System.out.print(stack.pop() + " ");
-        System.out.print(stack.pop() + " ");
-        System.out.print(stack.pop() + " ");
-        System.out.print(stack.pop() + " ");
+        Queue queue = new Queue(5);
+        queue.enqueue(1);
+        queue.enqueue(2);
+        queue.enqueue(3);
+        queue.enqueue(4);
+        queue.enqueue(5);
+        System.out.print(queue.dequeue());
+        queue.enqueue(6);
+        System.out.print(queue.dequeue());
+        System.out.print(queue.dequeue());
+        System.out.print(queue.dequeue());
+        System.out.print(queue.dequeue());
+        System.out.print(queue.dequeue());
     }
 }
