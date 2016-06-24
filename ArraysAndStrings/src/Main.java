@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class Main {
 
 
@@ -16,12 +18,9 @@ public class Main {
 
     public static void main(String[] args) {
         ArraysAndStrings arr = new ArraysAndStrings();
-        int []array = {0, 1, 2, 3, 4, 5, 6};
-        int []result = arr.rotateArray(array, 3);
-
-        for (int i =0; i < result.length; i++) {
-            System.out.print(result[i] + " ");
+        List<String> retVal = arr.findMissingRanges(new int[]{0, 1, 3, 50, 75}, 0, 99);
+        for (int i = 0; i < retVal.size(); i++) {
+            System.out.println(retVal.get(i));
         }
-
     }
 }

@@ -300,7 +300,8 @@ public class ArraysAndStrings {
             throw new IllegalArgumentException("Invalid exception.");
         }
         int i = 0;
-        while (i < n && Character.isWhitespace(str.charAt(i))) i++;
+
+        while (i < str.length() && Character.isWhitespace(str.charAt(i))) i++;
         int sign = 1;
         if (str.charAt(i) == '-') {
             sign = -1;
@@ -310,12 +311,83 @@ public class ArraysAndStrings {
         }
 
         int num = 0;
-        while (i < n && Character.isDigit(str.charAt(i))) {
+        while (i < str.length() && Character.isDigit(str.charAt(i))) {
             int digit = Character.getNumericValue(str.charAt(i));
             num = num * 10 + digit;
             i++;
         }
 
         return sign * num;
+    }
+
+    public boolean isNumeric(String str) {
+        if (str.isEmpty()) {
+            return false;
+        }
+        boolean isNumeric = false;
+        int i = 0;
+        while (i < str.length() && Character.isWhitespace(str.charAt(i))) i++;
+        if (i < str.length() && (str.charAt(i) == '-' || str.charAt(i) == '+')) i++;
+        while (i < str.length() && Character.isDigit(str.charAt(i))) {
+            i++;
+            isNumeric = true;
+        }
+        if (i < str.length() && str.charAt(i) == '.') {
+            i++;
+            while (i < str.length() && Character.isDigit(str.charAt(i))) {
+                i++;
+                isNumeric = true;
+            }
+        }
+        while (i < str.length() && Character.isWhitespace(str.charAt(i))) i++;
+        return isNumeric && i == str.length();
+    }
+
+    public int longestSubstring(String s) {
+        boolean[] exists = new boolean[256];
+        int maxLength = 0, start = 0;
+        for (int end = 0; end < s.length(); end ++) {
+            while (exists[s.charAt(end)]) {
+                exists[s.charAt(start)] = false;
+                start++;
+            }
+
+            exists[s.charAt(end)] = true;
+            maxLength = Math.max(end - start + 1, maxLength);
+        }
+
+        return maxLength;
+    }
+
+    public int lengthOfLongestSubstringTwoDistinct(String s) {
+        int start = 0, lastPositionOf = -1, maxLength = 0;
+        for (int end = 1; end < s.length(); end++) {
+            if (s.charAt(end) == s.charAt(end -1)) continue;
+            if (lastPositionOf >= 0 && s.charAt(lastPositionOf) != s.charAt(end)) {
+                maxLength = Math.max(start - end, maxLength);
+                start = lastPositionOf + 1;
+            }
+            lastPositionOf = end - 1;
+        }
+
+        return maxLength;
+    }
+
+    public List<String> findMissingRanges(int []vals, int start, int end) {
+        List<String> ranges = new ArrayList<>();
+        int prev = start - 1;
+        for (int i = 0; i <= vals.length; i++) {
+            int current = (i == vals.length) ? end + 1 : vals[i];
+            if (current - prev >= 2) {
+                ranges.add(range(prev + 1, current -1));
+            }
+            prev = current;
+        }
+
+        return ranges;
+    }
+
+    private String range(int from, int to) {
+        return (from == to) ? String.valueOf(to) : from + "->" + to;
     }
 }
