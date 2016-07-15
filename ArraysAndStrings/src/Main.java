@@ -1,3 +1,5 @@
+import org.omg.PortableServer.LIFESPAN_POLICY_ID;
+
 import java.util.List;
 
 public class Main {
@@ -17,10 +19,17 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        ArraysAndStrings arr = new ArraysAndStrings();
-        List<String> retVal = arr.findMissingRanges(new int[]{0, 1, 3, 50, 75}, 0, 99);
-        for (int i = 0; i < retVal.size(); i++) {
-            System.out.println(retVal.get(i));
-        }
+        SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
+        list.insert(1);
+        list.insert(2);
+        list.insert(3);
+        list.insert(3);
+        list.insert(2);
+        list.insert(1);
+        list.printList();
+        System.out.println(list.isPalindrome());
+        list.printList();
+        System.out.println();
+        System.out.println(list.findMidValue());
     }
 }
